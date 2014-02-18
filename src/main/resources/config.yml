@@ -2,7 +2,7 @@
 # chatenabled - whether or not people can print chat from a book
 # commandsenabled - whether or not people can use commands from a book
 # bookname - the name a book should have to be recognized as a command book
-maxcommands: 256
+maxcommands: 16
 chatenabled: true
 commandsenabled: true
 bookname: 'command'
