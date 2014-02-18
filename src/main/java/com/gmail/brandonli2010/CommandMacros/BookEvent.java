@@ -23,35 +23,35 @@ public class BookEvent implements Listener {
 			{
 				if (event.getItem().getType() == Material.WRITTEN_BOOK)
 				{
-					 BookMeta thisbook = (BookMeta) event.getItem().getItemMeta();
-					 if (thisbook.getTitle().equals("command"))
-					 {
-						 if (!event.getPlayer().hasPermission("commandmacros.macro"))
-						 {
-							 event.getPlayer().sendMessage("You dont have permissions to use a macro.");
-							 return;
-						 }
-						 if ((thisbook.getPageCount() > plugin.getConfig().getInt("maxcommands")) & (!(plugin.getConfig().getInt("maxcommands") == 0)))
-						 {
-							 event.getPlayer().sendMessage("there cannot be more than " + "commannds on a book.");
-							 return;
-						 }
-						 Logger cmdlog = plugin.getLogger();
-						 String pname = event.getPlayer().getName();
-						 for (int ind = 1; ind <= thisbook.getPageCount(); ind ++)
-						 {
-							 if (thisbook.getPage(ind).startsWith("/") & plugin.getConfig().getBoolean("commandsenabled"))
-							 {
-								 event.getPlayer().chat(thisbook.getPage(ind));
-								 cmdlog.info(pname + " issued server command " + thisbook.getPage(ind));
-							 }
-							 else if (plugin.getConfig().getBoolean("chatenabled"))
-							 {
-								 event.getPlayer().chat(thisbook.getPage(ind));
-							 }
-						 }
-						 event.setCancelled(true);
-					 }
+					BookMeta thisbook = (BookMeta) event.getItem().getItemMeta();
+					if (thisbook.getTitle().equals(plugin.getConfig().getString("bookname")))
+					{
+						if (!event.getPlayer().hasPermission("commandmacros.macro"))
+						{
+							event.getPlayer().sendMessage("You dont have permissions to use a macro.");
+							return;
+						}
+						if ((thisbook.getPageCount() > plugin.getConfig().getInt("maxcommands")) & (!(plugin.getConfig().getInt("maxcommands") == 0)))
+						{
+							event.getPlayer().sendMessage("there cannot be more than " + "commannds on a book.");
+							return;
+						}
+						Logger cmdlog = plugin.getLogger();
+						String pname = event.getPlayer().getName();
+						for (int ind = 1; ind <= thisbook.getPageCount(); ind ++)
+						{
+							if (thisbook.getPage(ind).startsWith("/") & plugin.getConfig().getBoolean("commandsenabled"))
+							{
+								event.getPlayer().chat(thisbook.getPage(ind));
+								cmdlog.info(pname + " issued server command " + thisbook.getPage(ind));
+							}
+							else if (plugin.getConfig().getBoolean("chatenabled"))
+							{
+								event.getPlayer().chat(thisbook.getPage(ind));
+							}
+						}
+						event.setCancelled(true);
+					}
 				}
 			}
 		}
