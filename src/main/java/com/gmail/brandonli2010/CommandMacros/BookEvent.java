@@ -28,12 +28,12 @@ public class BookEvent implements Listener {
 					{
 						if (!event.getPlayer().hasPermission("commandmacros.macro"))
 						{
-							event.getPlayer().sendMessage("You dont have permissions to use a macro.");
+							event.getPlayer().sendMessage("\u00a7cYou dont have permissions to use a macro.");
 							return;
 						}
 						if ((thisbook.getPageCount() > plugin.getConfig().getInt("maxcommands")) & (!(plugin.getConfig().getInt("maxcommands") == 0)))
 						{
-							event.getPlayer().sendMessage("there cannot be more than " + "commannds on a book.");
+							event.getPlayer().sendMessage("\u00a7cThere cannot be more than " + plugin.getConfig().getInt("maxcommands") + "commannds on a book.");
 							return;
 						}
 						Logger cmdlog = plugin.getLogger();
