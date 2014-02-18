@@ -36,21 +36,26 @@ public class BookEvent implements Listener {
 							event.getPlayer().sendMessage("\u00a7cThere cannot be more than " + plugin.getConfig().getInt("maxcommands") + "commannds on a book.");
 							return;
 						}
+						event.setCancelled(true);
 						Logger cmdlog = plugin.getLogger();
 						String pname = event.getPlayer().getName();
+						Boolean cmdE = plugin.getConfig().getBoolean("commandsenabled");
+						Boolean chatE = plugin.getConfig().getBoolean("chatenabled");
 						for (int ind = 1; ind <= thisbook.getPageCount(); ind ++)
 						{
-							if (thisbook.getPage(ind).startsWith("/") & plugin.getConfig().getBoolean("commandsenabled"))
+							if (thisbook.getPage(ind).startsWith("/"))
 							{
-								event.getPlayer().chat(thisbook.getPage(ind));
-								cmdlog.info(pname + " issued server command " + thisbook.getPage(ind));
+								if (cmdE)
+								{
+									event.getPlayer().chat(thisbook.getPage(ind));
+									cmdlog.info(pname + " issued server command " + thisbook.getPage(ind));
+								}
 							}
-							else if (plugin.getConfig().getBoolean("chatenabled"))
+							else if (chatE)
 							{
 								event.getPlayer().chat(thisbook.getPage(ind));
 							}
 						}
-						event.setCancelled(true);
 					}
 				}
 			}
