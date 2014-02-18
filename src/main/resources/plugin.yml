@@ -1,7 +1,31 @@
 name: CommandMacros
 main: com.gmail.brandonli2010.CommandMacros.CommandMacros
-version: 1
+version: 1.1
+author: thepowderguy
+website: 'https://github.com/thepowderguy/CommandMacros'
+commands:
+  macro-reload:
+    description: reload the config
+    usage: /macro-reload
+    permission: commandmacros.reload
+    aliases: [m-r]
+  macro-getbook:
+    description: get a unsigned book from a signed one.
+    usage: /macro-getbook
+    permission: commandmacros.book
+    aliases: [m-b]
 permissions:
   commandmacros.macro:
-    default: op
+    default: false
     description: Allows player access to use macro.
+  commandmacros.reload:
+    default: false
+    description: Allows player to use /macro-reload.
+  commandmacros.book:
+    default: false
+    description: Allows player to use /macro-get-book.
+  commandmacros.*
+    children:
+      commandmacros.macro: true
+      commandmacros.reload: true
+      commandmacros.book: true
