@@ -24,7 +24,7 @@ permissions:
   commandmacros.book:
     default: false
     description: Allows player to use /macro-get-book.
-  commandmacros.*
+  commandmacros.*:
     children:
       commandmacros.macro: true
       commandmacros.reload: true
