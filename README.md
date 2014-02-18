@@ -11,7 +11,8 @@ How to use:
 Permissions:
  - commandmacros.macro: Allows players to use macro books.
  - commandmacros.reload: Allows players to use /macro-reload.
- - commandmacros.book Allows players to use /macro-getbook.
+ - commandmacros.book: Allows players to use /macro-getbook.
+ - commandmacros.*: All CommandMacros permissions.
 
 Commands:
  - macro-reload: Reload the config.
