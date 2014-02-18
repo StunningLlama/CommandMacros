@@ -1,0 +1,7 @@
+name: CommandMacros
+main: com.gmail.brandonli2010.CommandMacros.CommandMacros
+version: 1
+permissions:
+  commandmacros.macro:
+    default: op
+    description: Allows player access to use macro.
