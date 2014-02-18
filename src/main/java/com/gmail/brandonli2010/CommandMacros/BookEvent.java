@@ -47,8 +47,8 @@ public class BookEvent implements Listener {
 							{
 								if (cmdE)
 								{
-									event.getPlayer().chat(thisbook.getPage(ind));
 									cmdlog.info(pname + " issued server command " + thisbook.getPage(ind));
+									event.getPlayer().chat(thisbook.getPage(ind));
 								}
 							}
 							else if (chatE)
