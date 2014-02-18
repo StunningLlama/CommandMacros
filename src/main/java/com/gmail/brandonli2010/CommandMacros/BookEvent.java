@@ -12,8 +12,8 @@ import org.bukkit.inventory.meta.BookMeta;
 public class BookEvent implements Listener {
 	private final CommandMacros plugin;
 	public BookEvent(CommandMacros instance) {
-        plugin = instance;
-    }
+		plugin = instance;
+	}
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event)
 	{
