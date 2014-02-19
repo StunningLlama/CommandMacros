@@ -1,7 +1,5 @@
 package com.gmail.brandonli2010.CommandMacros;
 
-import java.util.logging.Logger;
-
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -33,29 +31,11 @@ public class BookEvent implements Listener {
 						}
 						if ((thisbook.getPageCount() > plugin.getConfig().getInt("maxcommands")) & (!(plugin.getConfig().getInt("maxcommands") == 0)))
 						{
-							event.getPlayer().sendMessage("\u00a7cThere cannot be more than " + plugin.getConfig().getInt("maxcommands") + "commannds on a book.");
+							event.getPlayer().sendMessage("\u00a7cThere cannot be more than " + plugin.getConfig().getInt("maxcommands") + "commannds in a book.");
 							return;
 						}
 						event.setCancelled(true);
-						Logger cmdlog = plugin.getLogger();
-						String pname = event.getPlayer().getName();
-						Boolean cmdE = plugin.getConfig().getBoolean("commandsenabled");
-						Boolean chatE = plugin.getConfig().getBoolean("chatenabled");
-						for (int ind = 1; ind <= thisbook.getPageCount(); ind ++)
-						{
-							if (thisbook.getPage(ind).startsWith("/"))
-							{
-								if (cmdE)
-								{
-									cmdlog.info(pname + " issued server command " + thisbook.getPage(ind));
-									event.getPlayer().chat(thisbook.getPage(ind));
-								}
-							}
-							else if (chatE)
-							{
-								event.getPlayer().chat(thisbook.getPage(ind));
-							}
-						}
+						plugin.executeBook(event.getPlayer(), thisbook);
 					}
 				}
 			}
