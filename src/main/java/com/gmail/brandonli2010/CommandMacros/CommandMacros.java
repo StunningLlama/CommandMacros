@@ -111,7 +111,14 @@ public class CommandMacros extends JavaPlugin {
 			if ((p.getItemInHand() != null) && (p.getItemInHand().getType() == Material.WRITTEN_BOOK))
 			{
 				BookMeta thisbook = (BookMeta) p.getItemInHand().getItemMeta();
-				executeBook(p, thisbook);
+				if (thisbook.getTitle().equals(getConfig().getString("bookname")))
+				{
+					if ((thisbook.getPageCount() > getConfig().getInt("maxcommands")) & (!(getConfig().getInt("maxcommands") == 0)))
+					{
+						sender.sendMessage("\u00a7cThere cannot be more than " + getConfig().getInt("maxcommands") + " commands in a book.");
+					}
+					executeBook(p, thisbook);
+				}
 			}
 			return true;
 		}
