@@ -1,5 +1,13 @@
 package com.gmail.brandonli2010.CommandMacros;
 
+import java.util.logging.Logger;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CommandMacros extends JavaPlugin {
