@@ -49,7 +49,7 @@ public class CommandMacros extends JavaPlugin {
 					cmd = Bukkit.getPluginCommand(FirstToken(pages.getPage(ind)));
 					if ((cmd != null) && getConfig().getStringList("disabledcommands").contains(cmd.getName()))
 					{
-						p.sendMessage("\u00a7cCommandMacros: command " + pages.getPage(ind) + " was cancelled because it is diabled.");
+						p.sendMessage("\u00a7cCommandMacros: command cancelled because it is disabled: " + pages.getPage(ind));
 						cmdlog.info("Cancelled server command being executed by " + p.getName() + ": " + pages.getPage(ind));
 					}
 					else
