@@ -2,7 +2,15 @@
 # chatenabled - whether or not people can print chat from a book
 # commandsenabled - whether or not people can use commands from a book
 # bookname - the name a book should have to be recognized as a command book
+# disabledcommands - a list of commands. These commands will not be run in books.
+# [WARNING!] DO NOT DELETE THIS LINE: '- macro' OR YOUR SERVER WILL POSSIBLY CRASH
+
 maxcommands: 16
 chatenabled: true
 commandsenabled: true
 bookname: 'command'
+disabledcommands:
+- macro
+- ban
+- kill
+- kick
