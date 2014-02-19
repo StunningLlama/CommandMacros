@@ -5,6 +5,59 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class CommandMacros extends JavaPlugin {
 	private final BookEvent bookListener = new BookEvent(this);
 
+	public String FirstToken(String str)
+	{
+		StringBuilder toreturn = new StringBuilder("");
+		if (str.length() > 1)
+		{
+			for (int si = 1; si < str.length(); si++)
+			{
+				if (str.charAt(si) == ' ')
+				{
+					break;
+				}
+				else
+				{
+					toreturn.append(str.charAt(si));
+				}
+			}
+		}
+		return toreturn.toString();
+	}
+
+	public void executeBook(Player p, BookMeta pages)
+	{
+		Logger cmdlog = getLogger();
+		String pname = p.getName();
+		Boolean cmdE = getConfig().getBoolean("commandsenabled");
+		Boolean chatE = getConfig().getBoolean("chatenabled");
+		Command cmd;
+		for (int ind = 1; ind <= pages.getPageCount(); ind ++)
+		{
+			if (pages.getPage(ind).startsWith("/"))
+			{
+				if (cmdE)
+				{
+					cmd = Bukkit.getPluginCommand(FirstToken(pages.getPage(ind)));
+					if ((cmd != null) && getConfig().getStringList("disabledcommands").contains(cmd.getName()))
+					{
+						p.sendMessage("\u00a7cCommandMacros: command " + pages.getPage(ind) + " was cancelled because it is diabled.");
+						cmdlog.info("Cancelled server command being executed by " + p.getName() + ": " + pages.getPage(ind));
+					}
+					else
+					{
+						cmdlog.info(pname + " issued server command " + pages.getPage(ind));
+						p.chat(pages.getPage(ind));
+					}
+				}
+			}
+			else if (chatE)
+			{
+				p.chat(pages.getPage(ind));
+			}
+		}
+	}
+
 	@Override
 	public void onEnable()
 	{
@@ -38,6 +91,20 @@ public class CommandMacros extends JavaPlugin {
 				return true;
 			}
 			sender.sendMessage("\u00a7cYou are not holding a written book.");
+			return true;
+		}
+		if (cmd.getName().equalsIgnoreCase("macro"))
+		{
+			if (!(sender instanceof Player))
+			{
+				sender.sendMessage("\u00a7cOnly players can execute this command.");
+			}
+			Player p = (Player) sender;
+			if ((p.getItemInHand() != null) && (p.getItemInHand().getType() == Material.WRITTEN_BOOK))
+			{
+				BookMeta thisbook = (BookMeta) p.getItemInHand().getItemMeta();
+				executeBook(p, thisbook);
+			}
 			return true;
 		}
 		return false;
