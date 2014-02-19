@@ -31,7 +31,7 @@ public class BookEvent implements Listener {
 						}
 						if ((thisbook.getPageCount() > plugin.getConfig().getInt("maxcommands")) & (!(plugin.getConfig().getInt("maxcommands") == 0)))
 						{
-							event.getPlayer().sendMessage("\u00a7cThere cannot be more than " + plugin.getConfig().getInt("maxcommands") + "commannds in a book.");
+							event.getPlayer().sendMessage("\u00a7cThere cannot be more than " + plugin.getConfig().getInt("maxcommands") + "commands in a book.");
 							return;
 						}
 						event.setCancelled(true);
