@@ -2,6 +2,7 @@ name: CommandMacros
 main: com.gmail.brandonli2010.CommandMacros.CommandMacros
 version: 1.1
 author: thepowderguy
+description: CommandMacros allows you to put commands in a book and execute them.
 website: https://github.com/thepowderguy/CommandMacros
 commands:
   macro-reload:
