@@ -2,7 +2,7 @@ name: CommandMacros
 main: com.gmail.brandonli2010.CommandMacros.CommandMacros
 version: 1.1
 author: thepowderguy
-website: 'https://github.com/thepowderguy/CommandMacros'
+website: https://github.com/thepowderguy/CommandMacros
 commands:
   macro-reload:
     description: reload the config.
@@ -14,10 +14,15 @@ commands:
     usage: /macro-getbook
     permission: commandmacros.book
     aliases: [m-b]
+  macro:
+    description: Run the book in your hand as if you right-clicked.
+    usage: /macro
+    permission: commandmacros.macro
+    aliases: [macro-run,m]
 permissions:
   commandmacros.macro:
     default: false
-    description: Allows player access to use macro.
+    description: Allows player to use book macros.
   commandmacros.reload:
     default: false
     description: Allows player to use /macro-reload.
