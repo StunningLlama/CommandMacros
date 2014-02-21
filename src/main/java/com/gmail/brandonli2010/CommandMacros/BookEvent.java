@@ -22,7 +22,7 @@ public class BookEvent implements Listener {
 				if (event.getItem().getType() == Material.WRITTEN_BOOK)
 				{
 					BookMeta thisbook = (BookMeta) event.getItem().getItemMeta();
-					if (thisbook.getTitle().equals(plugin.getConfig().getString("bookname")))
+					if ((thisbook.getTitle() != null) & thisbook.getTitle().equals(plugin.getConfig().getString("bookname")))
 					{
 						if (!event.getPlayer().hasPermission("commandmacros.macro"))
 						{
