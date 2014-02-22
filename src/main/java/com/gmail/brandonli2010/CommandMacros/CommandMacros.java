@@ -130,7 +130,7 @@ public class CommandMacros extends JavaPlugin {
 			if ((p.getItemInHand() != null) && (p.getItemInHand().getType() == Material.WRITTEN_BOOK))
 			{
 				BookMeta thisbook = (BookMeta) p.getItemInHand().getItemMeta();
-				if (thisbook.getTitle().equals(getConfig().getString("bookname")))
+				if ((thisbook.getTitle() != null) && thisbook.getTitle().equals(getConfig().getString("bookname")))
 				{
 					if ((thisbook.getPageCount() > getConfig().getInt("maxcommands")) & (!(getConfig().getInt("maxcommands") == 0)))
 					{
