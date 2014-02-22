@@ -66,6 +66,25 @@ public class CommandMacros extends JavaPlugin {
 		}
 	}
 
+	public void executeconsolebook(BookMeta pages)
+	{
+		Logger cmdlog = getLogger();
+		Command cmd;
+		for (int ind = 1; ind <= pages.getPageCount(); ind ++)
+		{
+			cmd = Bukkit.getPluginCommand(FirstToken(pages.getPage(ind)));
+			if ((cmd != null) && getConfig().getStringList("disabledcommands").contains(cmd.getName()))
+			{
+				cmdlog.info("Cancelled server command being executed by CONSOLE: " + pages.getPage(ind));
+			}
+			else
+			{
+				cmdlog.info("CONSOLE issued server command " + pages.getPage(ind));
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), pages.getPage(ind));
+			}
+		}
+	}
+
 	@Override
 	public void onEnable()
 	{
