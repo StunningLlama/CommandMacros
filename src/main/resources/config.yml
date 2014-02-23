@@ -5,6 +5,7 @@
 # enabledispensers: whether or not dispensers can execute commands
 # doconsolebooks: whether or not dispensers can make console execute command. This should stay false, except for special cases.
 # disabledcommands - a list of commands. These commands will not be run in books.
+# selectors: whether or not to enable selectors (@a, @p, @r)
 # [WARNING!] DO NOT DELETE THIS LINE: '- macro' OR YOUR SERVER WILL POSSIBLY CRASH
 
 maxcommands: 16
@@ -13,6 +14,7 @@ commandsenabled: true
 bookname: 'command'
 enabledispensers: true
 doconsolebooks: false
+selectors: true
 disabledcommands:
 - macro
 - ban
