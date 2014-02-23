@@ -35,6 +35,16 @@ public class CommandMacros extends JavaPlugin {
 
 	public void executeBook(Player p, BookMeta pages)
 	{
+		if (!p.hasPermission("commandmacros.macro"))
+		{
+			p.sendMessage("\u00a7cYou dont have permissions to use a macro.");
+			return;
+		}
+		if ((pages.getPageCount() > getConfig().getInt("maxcommands")) & (!(getConfig().getInt("maxcommands") == 0)))
+		{
+			p.sendMessage("\u00a7cThere cannot be more than " + getConfig().getInt("maxcommands") + " commands in a book.");
+			return;
+		}
 		Logger cmdlog = getLogger();
 		String pname = p.getName();
 		Boolean cmdE = getConfig().getBoolean("commandsenabled");
@@ -132,10 +142,6 @@ public class CommandMacros extends JavaPlugin {
 				BookMeta thisbook = (BookMeta) p.getItemInHand().getItemMeta();
 				if ((thisbook.getTitle() != null) && thisbook.getTitle().equals(getConfig().getString("bookname")))
 				{
-					if ((thisbook.getPageCount() > getConfig().getInt("maxcommands")) & (!(getConfig().getInt("maxcommands") == 0)))
-					{
-						sender.sendMessage("\u00a7cThere cannot be more than " + getConfig().getInt("maxcommands") + " commands in a book.");
-					}
 					executeBook(p, thisbook);
 				}
 			}
