@@ -1,17 +1,22 @@
 package com.gmail.brandonli2010.CommandMacros;
 
+import java.util.Random;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.meta.BookMeta;
 
 public class BookEvent implements Listener {
 	private final CommandMacros plugin;
 	public BookEvent(CommandMacros instance) {
-		plugin = instance;
-	}
+        plugin = instance;
+    }
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event)
 	{
@@ -24,16 +29,6 @@ public class BookEvent implements Listener {
 					BookMeta thisbook = (BookMeta) event.getItem().getItemMeta();
 					if ((thisbook.getTitle() != null) && thisbook.getTitle().equals(plugin.getConfig().getString("bookname")))
 					{
-						if (!event.getPlayer().hasPermission("commandmacros.macro"))
-						{
-							event.getPlayer().sendMessage("\u00a7cYou dont have permissions to use a macro.");
-							return;
-						}
-						if ((thisbook.getPageCount() > plugin.getConfig().getInt("maxcommands")) & (!(plugin.getConfig().getInt("maxcommands") == 0)))
-						{
-							event.getPlayer().sendMessage("\u00a7cThere cannot be more than " + plugin.getConfig().getInt("maxcommands") + "commands in a book.");
-							return;
-						}
 						event.setCancelled(true);
 						plugin.executeBook(event.getPlayer(), thisbook);
 					}
@@ -56,32 +51,61 @@ public class BookEvent implements Listener {
 				BookMeta thisbook = (BookMeta) event.getItem().getItemMeta();
 				if ((thisbook.getTitle() != null) && thisbook.getTitle().equals(plugin.getConfig().getString("bookname")))
 				{
-					if (thisbook.getAuthor().equals("@console"))
+					event.setCancelled(true);
+					if (thisbook.getAuthor().equals("@console") | thisbook.getAuthor().equals("@server"))
 					{
 						if (plugin.getConfig().getBoolean("doconsolebooks"))
 						{
-							event.setCancelled(true);
 							plugin.executeconsolebook(thisbook);
 						}
 						return;
 					}
-					Player sender = Bukkit.getPlayer(thisbook.getAuthor());
-					if (sender == null)
+					if (plugin.getConfig().getBoolean("selectors") & thisbook.getAuthor().startsWith("@"))
 					{
+						if (thisbook.getAuthor().equals("@p"))
+						{
+							Double shortestd = Double.POSITIVE_INFINITY;
+							Player finalp = null;
+							for (Player p : Bukkit.getOnlinePlayers())
+							{
+								if (event.getBlock().getWorld().equals(p.getWorld()) && (event.getBlock().getLocation().distanceSquared(p.getLocation()) < shortestd))
+								{
+									shortestd = event.getBlock().getLocation().distanceSquared(p.getLocation());
+									finalp = p;
+								}
+							}
+							if (finalp != null)
+							{
+								plugin.executeBook(finalp, thisbook);
+							}
+						}
+						if (thisbook.getAuthor().equals("@a"))
+						{
+							for (Player p : Bukkit.getOnlinePlayers())
+							{
+								plugin.executeBook(p, thisbook);
+							}
+						}
+						if (thisbook.getAuthor().equals("@r"))
+						{
+							if (Bukkit.getOnlinePlayers().length > 0)
+							{
+								Random r = new Random();
+								plugin.executeBook(Bukkit.getOnlinePlayers()[r.nextInt(Bukkit.getOnlinePlayers().length)], thisbook);
+							}
+						}
 						return;
 					}
-					if (!sender.hasPermission("commandmacros.macro"))
+					else
 					{
-						sender.sendMessage("\u00a7cYou dont have permissions to use a macro.");
+						Player sender = Bukkit.getPlayer(thisbook.getAuthor());
+						if (sender == null)
+						{
+							return;
+						}
+						plugin.executeBook(sender, thisbook);
 						return;
 					}
-					if ((thisbook.getPageCount() > plugin.getConfig().getInt("maxcommands")) & (!(plugin.getConfig().getInt("maxcommands") == 0)))
-					{
-						sender.sendMessage("\u00a7cThere cannot be more than " + plugin.getConfig().getInt("maxcommands") + " commands in a book.");
-						return;
-					}
-					event.setCancelled(true);
-					plugin.executeBook(sender, thisbook);
 				}
 			}
 		}
