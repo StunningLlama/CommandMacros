@@ -30,7 +30,7 @@ public class BookEvent implements Listener {
 					if ((thisbook.getTitle() != null) && thisbook.getTitle().equals(plugin.getConfig().getString("bookname")))
 					{
 						event.setCancelled(true);
-						plugin.executeBook(event.getPlayer(), thisbook);
+						plugin.executeBook(event.getPlayer(), thisbook, false);
 					}
 				}
 			}
@@ -76,14 +76,14 @@ public class BookEvent implements Listener {
 							}
 							if (finalp != null)
 							{
-								plugin.executeBook(finalp, thisbook);
+								plugin.executeBook(finalp, thisbook, true);
 							}
 						}
 						if (thisbook.getAuthor().equals("@a"))
 						{
 							for (Player p : Bukkit.getOnlinePlayers())
 							{
-								plugin.executeBook(p, thisbook);
+								plugin.executeBook(p, thisbook, true);
 							}
 						}
 						if (thisbook.getAuthor().equals("@r"))
@@ -91,7 +91,7 @@ public class BookEvent implements Listener {
 							if (Bukkit.getOnlinePlayers().length > 0)
 							{
 								Random r = new Random();
-								plugin.executeBook(Bukkit.getOnlinePlayers()[r.nextInt(Bukkit.getOnlinePlayers().length)], thisbook);
+								plugin.executeBook(Bukkit.getOnlinePlayers()[r.nextInt(Bukkit.getOnlinePlayers().length)], thisbook, true);
 							}
 						}
 						return;
@@ -103,7 +103,7 @@ public class BookEvent implements Listener {
 						{
 							return;
 						}
-						plugin.executeBook(sender, thisbook);
+						plugin.executeBook(sender, thisbook, true);
 						return;
 					}
 				}
