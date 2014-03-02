@@ -33,11 +33,16 @@ public class CommandMacros extends JavaPlugin {
 		return toreturn.toString();
 	}
 
-	public void executeBook(Player p, BookMeta pages)
+	public void executeBook(Player p, BookMeta pages, boolean dispenser)
 	{
 		if (!p.hasPermission("commandmacros.macro"))
 		{
 			p.sendMessage("\u00a7cYou dont have permissions to use a macro.");
+			return;
+		}
+		if (dispenser & p.hasPermission("commandmacros.blockdispenser"))
+		{
+			p.sendMessage("\u00a7cExecution cancelled becuase you have blocking dispensers on.");
 			return;
 		}
 		if ((pages.getPageCount() > getConfig().getInt("maxcommands")) & (!(getConfig().getInt("maxcommands") == 0)))
@@ -142,7 +147,7 @@ public class CommandMacros extends JavaPlugin {
 				BookMeta thisbook = (BookMeta) p.getItemInHand().getItemMeta();
 				if ((thisbook.getTitle() != null) && thisbook.getTitle().equals(getConfig().getString("bookname")))
 				{
-					executeBook(p, thisbook);
+					executeBook(p, thisbook, false);
 				}
 			}
 			return true;
