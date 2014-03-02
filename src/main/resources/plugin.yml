@@ -30,6 +30,9 @@ permissions:
   commandmacros.book:
     default: false
     description: Allows player to use /macro-get-book.
+  commandmacros.blockdispenser:
+    default: false
+    description: Blocks dispenser execution for a player.
   commandmacros.*:
     children:
       commandmacros.macro: true
