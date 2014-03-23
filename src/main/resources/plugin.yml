@@ -38,3 +38,4 @@ permissions:
       commandmacros.macro: true
       commandmacros.reload: true
       commandmacros.book: true
+      commandmacros.blockdispenser: false
